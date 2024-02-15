@@ -1,5 +1,4 @@
 ﻿using System;
-using xadrez_console.Tabuleiro;
 
 namespace Tabuleiro
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using Tabuleiro;
 using Xadrez;
-using xadrez_console.Tabuleiro;
 
 namespace xadrez_console
 {
@@ -21,6 +20,9 @@ namespace xadrez_console
             {
                 Console.WriteLine(ex.Message);
             }
+            PosicaoXadrez pos = new PosicaoXadrez('a', 1);
+            Console.WriteLine(pos);
+            Console.WriteLine(pos.ToPosicao());
         }
     }
 }
