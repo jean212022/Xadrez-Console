@@ -15,5 +15,9 @@ namespace Tabuleiro
             QuantMovimentos = 0;
             Tabuleiro = tabuleiro;
         }
+        public void IncrementarQuantidadeMov()
+        {
+            this.QuantMovimentos++;
+        }
     }
 }
