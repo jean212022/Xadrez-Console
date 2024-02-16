@@ -19,6 +19,10 @@ namespace Tabuleiro
         {
             this.QuantMovimentos++;
         }
+        public void DecrementarQuantidadeMov()
+        {
+            this.QuantMovimentos--;
+        }
         public bool ExisteMovimentosPossiveis()
         {
             bool[,] mat = this.MovimentosPossiveis();

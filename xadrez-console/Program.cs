@@ -33,6 +33,10 @@ namespace xadrez_console
                     {
                         Console.WriteLine(ex.Message);
                         Console.ReadLine();
+                    } catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        Console.ReadLine();
                     }
                 }
             } catch(TabuleiroException ex)
