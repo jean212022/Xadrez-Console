@@ -6,8 +6,8 @@ namespace Xadrez
     public class PartidaDeXadrez
     {
         public Tabuleiros Tabuleiro { get; private set; }
-        private int Turno;
-        private Cor JogadorAtual;
+        public int Turno { get; private set; }
+        public Cor JogadorAtual { get; private set; }
         public bool Terminada { get; private set; }
         public PartidaDeXadrez()
         {
@@ -23,6 +23,44 @@ namespace Xadrez
             peca.IncrementarQuantidadeMov();
             Peca pecaCap = this.Tabuleiro.RetirarPeca(destino);
             this.Tabuleiro.ColocarPeca(peca, destino);
+        }
+        public void RealizaJogada(Posicao origem, Posicao destino)
+        {
+            ExecutaMovimento(origem, destino);
+            Turno++;
+            MudaJogador();
+        }
+        public void ValidarPosicaoDeOrigem(Posicao origem)
+        {
+            if(this.Tabuleiro.Peca(origem) == null)
+            {
+                throw new TabuleiroException("Não existe peça na posicao escolhida!");
+            }
+            if(this.JogadorAtual != this.Tabuleiro.Peca(origem).Cor)
+            {
+                throw new TabuleiroException("A peça de origem escolhida não é sua!");
+            }
+            if (!this.Tabuleiro.Peca(origem).ExisteMovimentosPossiveis())
+            {
+                throw new TabuleiroException("Não há movimentos possiveis para realizar com a peça escolhida!");
+            }
+        }
+        public void ValidarPosicaoDeDestino(Posicao origem, Posicao destino)
+        {
+            if (!Tabuleiro.Peca(origem).PodeMoverPara(destino))
+            {
+                throw new TabuleiroException("Posição de destino invalida!");
+            }
+        }
+        private void MudaJogador()
+        {
+            if (this.JogadorAtual == Cor.Branco)
+            {
+                this.JogadorAtual = Cor.Preto;
+            } else
+            {
+                this.JogadorAtual = Cor.Branco;
+            }
         }
         private void ColocarPecas()
         {
