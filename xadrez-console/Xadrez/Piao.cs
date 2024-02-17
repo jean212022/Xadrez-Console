@@ -5,7 +5,11 @@ namespace Xadrez
 {
     public class Piao : Peca
     {
-        public Piao(Tabuleiros tabuleiro, Cor cor) : base(tabuleiro, cor) { }
+        private PartidaDeXadrez PartidaDeXadrez;
+        public Piao(Tabuleiros tabuleiro, Cor cor, PartidaDeXadrez partida) : base(tabuleiro, cor)
+        {
+            this.PartidaDeXadrez = partida;
+        }
         public override string ToString()
         {
             return "P";
@@ -24,7 +28,7 @@ namespace Xadrez
                 }
                 // Mais Acima
                 posicao.DefinirValores(this.Posicao.Linha - 2, this.Posicao.Coluna);
-                if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao) && this.QuantMovimentos == 0 && this.Tabuleiro.Peca(posicao) == null)
+                if (this.QuantMovimentos == 0 && this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao) && this.Tabuleiro.Peca(posicao) == null)
                 {
                     mat[posicao.Linha, posicao.Coluna] = true;
                 }
@@ -40,6 +44,20 @@ namespace Xadrez
                 {
                     mat[posicao.Linha, posicao.Coluna] = true;
                 }
+                //En Passant
+                if (this.Posicao.Linha == 3)
+                {
+                    Posicao esquerda = new Posicao(this.Posicao.Linha, this.Posicao.Coluna - 1);
+                    if (this.Tabuleiro.PosicaoValida(esquerda) && this.Tabuleiro.Peca(esquerda) != null && this.Tabuleiro.Peca(esquerda).Cor != this.Cor && this.Tabuleiro.Peca(esquerda) == this.PartidaDeXadrez.PecaVuneralvelEnPassant)
+                    {
+                        mat[esquerda.Linha - 1, esquerda.Coluna] = true;
+                    }
+                    Posicao direita = new Posicao(this.Posicao.Linha, this.Posicao.Coluna + 1);
+                    if (this.Tabuleiro.PosicaoValida(direita) && this.Tabuleiro.Peca(direita) != null && this.Tabuleiro.Peca(direita).Cor != this.Cor && this.Tabuleiro.Peca(direita) == this.PartidaDeXadrez.PecaVuneralvelEnPassant)
+                    {
+                        mat[direita.Linha - 1, direita.Coluna] = true;
+                    }
+                }
             } else
             {
                 // Acima
@@ -50,7 +68,7 @@ namespace Xadrez
                 }
                 // Mais Acima
                 posicao.DefinirValores(this.Posicao.Linha + 2, this.Posicao.Coluna);
-                if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao) && this.QuantMovimentos == 0 && this.Tabuleiro.Peca(posicao) == null)
+                if (this.QuantMovimentos == 0 && this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao) && this.Tabuleiro.Peca(posicao) == null)
                 {
                     mat[posicao.Linha, posicao.Coluna] = true;
                 }
@@ -65,6 +83,20 @@ namespace Xadrez
                 if (this.Tabuleiro.PosicaoValida(posicao) && this.Tabuleiro.Peca(posicao) != null && this.Tabuleiro.Peca(posicao).Cor != this.Cor)
                 {
                     mat[posicao.Linha, posicao.Coluna] = true;
+                }
+                //En Passant
+                if (this.Posicao.Linha == 4)
+                {
+                    Posicao esquerda = new Posicao(this.Posicao.Linha, this.Posicao.Coluna - 1);
+                    if (this.Tabuleiro.PosicaoValida(esquerda) && this.Tabuleiro.Peca(esquerda) != null && this.Tabuleiro.Peca(esquerda).Cor != this.Cor && this.Tabuleiro.Peca(esquerda) == this.PartidaDeXadrez.PecaVuneralvelEnPassant)
+                    {
+                        mat[esquerda.Linha + 1, esquerda.Coluna] = true;
+                    }
+                    Posicao direita = new Posicao(this.Posicao.Linha, this.Posicao.Coluna + 1);
+                    if (this.Tabuleiro.PosicaoValida(direita) && this.Tabuleiro.Peca(direita) != null && this.Tabuleiro.Peca(direita).Cor != this.Cor && this.Tabuleiro.Peca(direita) == this.PartidaDeXadrez.PecaVuneralvelEnPassant)
+                    {
+                        mat[direita.Linha + 1, direita.Coluna] = true;
+                    }
                 }
             }
             return mat;

@@ -61,7 +61,7 @@ namespace xadrez_console
         public static void ImprimirPecasCapturadas(PartidaDeXadrez partida)
         {
             Console.WriteLine("\nPecas capturadas: ");
-            Console.Write("Bracas: ");
+            Console.Write("Brancas: ");
             ImprimirConjunto(partida.PecasCapturadas(Cor.Branco));
             ConsoleColor aux = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Yellow;
