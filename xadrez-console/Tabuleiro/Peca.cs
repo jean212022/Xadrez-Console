@@ -38,9 +38,13 @@ namespace Tabuleiro
             }
             return false;
         }
-        public bool PodeMoverPara(Posicao posicao)
+        public bool MovimentoPossivel(Posicao posicao)
         {
             return MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
+        }
+        protected bool PodeMover(Posicao posicao)
+        {
+            return this.Tabuleiro.Peca(posicao) == null || this.Tabuleiro.Peca(posicao).Cor != this.Cor;
         }
         public abstract bool[,] MovimentosPossiveis();
     }

@@ -3,62 +3,62 @@ using Tabuleiro;
 
 namespace Xadrez
 {
-    public class Rei : Peca
+    public class Cavalo : Peca
     {
-        public Rei(Tabuleiros tabuleiro, Cor cor) : base(tabuleiro, cor) { }
+        public Cavalo(Tabuleiros tabuleiro, Cor cor) : base(tabuleiro, cor) { }
         public override string ToString()
         {
-            return "R";
+            return "C";
         }
         public override bool[,] MovimentosPossiveis()
         {
-            bool[,] mat = new bool[Tabuleiro.Linhas,Tabuleiro.Colunas];
-            Posicao posicao = new Posicao(0,0);
+            bool[,] mat = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
+            Posicao posicao = new Posicao(0, 0);
 
-            // Acima
-            posicao.DefinirValores(this.Posicao.Linha - 1, this.Posicao.Coluna);
+            // Mais Acima Esquerda
+            posicao.DefinirValores(this.Posicao.Linha - 2, this.Posicao.Coluna - 1);
             if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao))
             {
                 mat[posicao.Linha, posicao.Coluna] = true;
             }
-            //Abaixo
-            posicao.DefinirValores(this.Posicao.Linha + 1, this.Posicao.Coluna);
+            // Mais Acima Direita
+            posicao.DefinirValores(this.Posicao.Linha - 2, this.Posicao.Coluna + 1);
             if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao))
             {
                 mat[posicao.Linha, posicao.Coluna] = true;
             }
-            //Nordeste
-            posicao.DefinirValores(this.Posicao.Linha - 1, this.Posicao.Coluna + 1);
+            // Mais Abaixo Esquerda
+            posicao.DefinirValores(this.Posicao.Linha + 2, this.Posicao.Coluna - 1);
             if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao))
             {
                 mat[posicao.Linha, posicao.Coluna] = true;
             }
-            //Sudeste
-            posicao.DefinirValores(this.Posicao.Linha + 1, this.Posicao.Coluna - 1);
+            // Mais Abaixo Direita
+            posicao.DefinirValores(this.Posicao.Linha + 2, this.Posicao.Coluna + 1);
             if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao))
             {
                 mat[posicao.Linha, posicao.Coluna] = true;
             }
-            //Direita
-            posicao.DefinirValores(this.Posicao.Linha, this.Posicao.Coluna + 1);
+            // Mais para Esquerda Acima
+            posicao.DefinirValores(this.Posicao.Linha - 1, this.Posicao.Coluna - 2);
             if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao))
             {
                 mat[posicao.Linha, posicao.Coluna] = true;
             }
-            //Esquerda
-            posicao.DefinirValores(this.Posicao.Linha, this.Posicao.Coluna - 1);
+            // Mais para Direita Acima
+            posicao.DefinirValores(this.Posicao.Linha - 1, this.Posicao.Coluna + 2);
             if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao))
             {
                 mat[posicao.Linha, posicao.Coluna] = true;
             }
-            //Noroeste
-            posicao.DefinirValores(this.Posicao.Linha - 1, this.Posicao.Coluna - 1);
+            // Mais para Esquerda Abaixo
+            posicao.DefinirValores(this.Posicao.Linha + 1, this.Posicao.Coluna - 2);
             if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao))
             {
                 mat[posicao.Linha, posicao.Coluna] = true;
             }
-            //Sudoeste
-            posicao.DefinirValores(this.Posicao.Linha + 1, this.Posicao.Coluna + 1);
+            // Mais para Direita Abaixo
+            posicao.DefinirValores(this.Posicao.Linha + 1, this.Posicao.Coluna + 2);
             if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao))
             {
                 mat[posicao.Linha, posicao.Coluna] = true;

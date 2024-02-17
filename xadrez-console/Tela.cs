@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Xadrez;
 using Tabuleiro;
+using System.Runtime.CompilerServices;
 
 namespace xadrez_console
 {
@@ -44,10 +45,17 @@ namespace xadrez_console
             ImprimirTabuleiro(partida.Tabuleiro);
             ImprimirPecasCapturadas(partida);
             Console.WriteLine("\nTurno: " + partida.Turno);
-            Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
-            if (partida.Xeque)
+            if (!partida.Terminada)
             {
-                Console.WriteLine("XEQUE!");
+                Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+                if (partida.Xeque)
+                {
+                    Console.WriteLine("XEQUE!");
+                }
+            } else
+            {
+                Console.WriteLine("XEQUEMATE!");
+                Console.WriteLine("Vencedor: {0}!", partida.Adversario(partida.JogadorAtual));
             }
         }
         public static void ImprimirPecasCapturadas(PartidaDeXadrez partida)

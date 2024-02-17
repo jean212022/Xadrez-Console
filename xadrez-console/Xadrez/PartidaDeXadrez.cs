@@ -85,8 +85,44 @@ namespace Xadrez
             {
                 this.Xeque = false;
             }
+            if (TesteXequeMate(Adversario(JogadorAtual)))
+            {
+                this.Terminada = true;
+            }
             Turno++;
             MudaJogador();
+        }
+        public bool TesteXequeMate(Cor cor)
+        {
+            if (this.Xeque)
+            {
+                foreach(Peca peca in PecasEmJogo(cor))
+                {
+                    bool[,] mat = peca.MovimentosPossiveis();
+                    for(int i = 0; i < this.Tabuleiro.Linhas; i++)
+                    {
+                        for(int j = 0; j < this.Tabuleiro.Colunas; j++)
+                        {
+                            if (mat[i, j])
+                            {
+                                Posicao origem = peca.Posicao;
+                                Posicao destino = new Posicao(i, j);
+                                Peca pecaCap = ExecutaMovimento(origem, destino);
+                                bool estaXeque = EstaEmXeque(cor);
+                                DesfazMovimento(origem, destino, pecaCap);
+                                if (!estaXeque)
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                return true;
+            } else
+            {
+                return false;
+            }
         }
         public void ValidarPosicaoDeOrigem(Posicao origem)
         {
@@ -105,12 +141,12 @@ namespace Xadrez
         }
         public void ValidarPosicaoDeDestino(Posicao origem, Posicao destino)
         {
-            if (!Tabuleiro.Peca(origem).PodeMoverPara(destino))
+            if (!Tabuleiro.Peca(origem).MovimentoPossivel(destino))
             {
                 throw new TabuleiroException("Posição de destino invalida!");
             }
         }
-        private Cor Adversario(Cor cor)
+        public Cor Adversario(Cor cor)
         {
             if (cor == Cor.Branco)
             {
@@ -166,18 +202,12 @@ namespace Xadrez
         private void ColocarPecas()
         {
             ColocarNovaPeca('c', 1, new Torre(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('c', 2, new Torre(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('d', 2, new Torre(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('e', 1, new Torre(Tabuleiro, Cor.Branco));
-            ColocarNovaPeca('e', 2, new Torre(Tabuleiro, Cor.Branco));
+            ColocarNovaPeca('h', 7, new Torre(Tabuleiro, Cor.Branco));
             ColocarNovaPeca('d', 1, new Rei(Tabuleiro, Cor.Branco));
 
-            ColocarNovaPeca('c', 8, new Torre(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('c', 7, new Torre(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('d', 7, new Torre(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('e', 8, new Torre(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('e', 7, new Torre(Tabuleiro, Cor.Preto));
-            ColocarNovaPeca('d', 8, new Rei(Tabuleiro, Cor.Preto));
+            ColocarNovaPeca('c', 5, new Piao(Tabuleiro, Cor.Preto));
+            ColocarNovaPeca('b', 8, new Torre(Tabuleiro, Cor.Preto));
+            ColocarNovaPeca('a', 8, new Rei(Tabuleiro, Cor.Preto));
         }
     }
 }

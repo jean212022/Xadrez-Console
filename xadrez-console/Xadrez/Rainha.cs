@@ -3,12 +3,12 @@ using Tabuleiro;
 
 namespace Xadrez
 {
-    public class Torre : Peca
+    public class Rainha : Peca
     {
-        public Torre(Tabuleiros tabuleiro, Cor cor) : base(tabuleiro, cor) { }
+        public Rainha(Tabuleiros tabuleiro, Cor cor) : base(tabuleiro, cor) { }
         public override string ToString()
         {
-            return "T";
+            return "Q";
         }
         public override bool[,] MovimentosPossiveis()
         {
@@ -57,6 +57,54 @@ namespace Xadrez
                 {
                     break;
                 }
+                posicao.Coluna--;
+            }
+            // Nordeste
+            posicao.DefinirValores(this.Posicao.Linha - 1, this.Posicao.Coluna - 1);
+            while (this.Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
+            {
+                mat[posicao.Linha, posicao.Coluna] = true;
+                if (this.Tabuleiro.Peca(posicao) != null && this.Tabuleiro.Peca(posicao).Cor != this.Cor)
+                {
+                    break;
+                }
+                posicao.Linha--;
+                posicao.Coluna--;
+            }
+            //Sudoeste
+            posicao.DefinirValores(this.Posicao.Linha + 1, this.Posicao.Coluna + 1);
+            while (this.Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
+            {
+                mat[posicao.Linha, posicao.Coluna] = true;
+                if (this.Tabuleiro.Peca(posicao) != null && this.Tabuleiro.Peca(posicao).Cor != this.Cor)
+                {
+                    break;
+                }
+                posicao.Linha++;
+                posicao.Coluna++;
+            }
+            //Sudeste
+            posicao.DefinirValores(this.Posicao.Linha - 1, this.Posicao.Coluna + 1);
+            while (this.Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
+            {
+                mat[posicao.Linha, posicao.Coluna] = true;
+                if (this.Tabuleiro.Peca(posicao) != null && this.Tabuleiro.Peca(posicao).Cor != this.Cor)
+                {
+                    break;
+                }
+                posicao.Linha--;
+                posicao.Coluna++;
+            }
+            //Noroeste
+            posicao.DefinirValores(this.Posicao.Linha + 1, this.Posicao.Coluna - 1);
+            while (this.Tabuleiro.PosicaoValida(posicao) && PodeMover(posicao))
+            {
+                mat[posicao.Linha, posicao.Coluna] = true;
+                if (this.Tabuleiro.Peca(posicao) != null && this.Tabuleiro.Peca(posicao).Cor != this.Cor)
+                {
+                    break;
+                }
+                posicao.Linha++;
                 posicao.Coluna--;
             }
             return mat;
