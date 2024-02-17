@@ -18,13 +18,25 @@ namespace Xadrez
             {
                 // Acima
                 posicao.DefinirValores(this.Posicao.Linha - 1, this.Posicao.Coluna);
-                if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao))
+                if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao) && this.Tabuleiro.Peca(posicao) == null)
                 {
                     mat[posicao.Linha, posicao.Coluna] = true;
                 }
                 // Mais Acima
                 posicao.DefinirValores(this.Posicao.Linha - 2, this.Posicao.Coluna);
-                if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao) && this.QuantMovimentos == 0)
+                if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao) && this.QuantMovimentos == 0 && this.Tabuleiro.Peca(posicao) == null)
+                {
+                    mat[posicao.Linha, posicao.Coluna] = true;
+                }
+                // Mais Acima Esquerda
+                posicao.DefinirValores(this.Posicao.Linha - 1, this.Posicao.Coluna - 1);
+                if (this.Tabuleiro.PosicaoValida(posicao) && this.Tabuleiro.Peca(posicao) != null && this.Tabuleiro.Peca(posicao).Cor != this.Cor)
+                {
+                    mat[posicao.Linha, posicao.Coluna] = true;
+                }
+                // Mais Acima Direita
+                posicao.DefinirValores(this.Posicao.Linha - 1, this.Posicao.Coluna + 1);
+                if (this.Tabuleiro.PosicaoValida(posicao) && this.Tabuleiro.Peca(posicao) != null && this.Tabuleiro.Peca(posicao).Cor != this.Cor)
                 {
                     mat[posicao.Linha, posicao.Coluna] = true;
                 }
@@ -32,13 +44,25 @@ namespace Xadrez
             {
                 // Acima
                 posicao.DefinirValores(this.Posicao.Linha + 1, this.Posicao.Coluna);
-                if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao))
+                if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao) && this.Tabuleiro.Peca(posicao) == null)
                 {
                     mat[posicao.Linha, posicao.Coluna] = true;
                 }
                 // Mais Acima
                 posicao.DefinirValores(this.Posicao.Linha + 2, this.Posicao.Coluna);
-                if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao) && this.QuantMovimentos == 0)
+                if (this.Tabuleiro.PosicaoValida(posicao) && this.PodeMover(posicao) && this.QuantMovimentos == 0 && this.Tabuleiro.Peca(posicao) == null)
+                {
+                    mat[posicao.Linha, posicao.Coluna] = true;
+                }
+                // Mais Acima Direita
+                posicao.DefinirValores(this.Posicao.Linha + 1, this.Posicao.Coluna + 1);
+                if (this.Tabuleiro.PosicaoValida(posicao) && this.Tabuleiro.Peca(posicao) != null && this.Tabuleiro.Peca(posicao).Cor != this.Cor)
+                {
+                    mat[posicao.Linha, posicao.Coluna] = true;
+                }
+                // Mais Acima Esquerda
+                posicao.DefinirValores(this.Posicao.Linha - 1, this.Posicao.Coluna + 1);
+                if (this.Tabuleiro.PosicaoValida(posicao) && this.Tabuleiro.Peca(posicao) != null && this.Tabuleiro.Peca(posicao).Cor != this.Cor)
                 {
                     mat[posicao.Linha, posicao.Coluna] = true;
                 }
